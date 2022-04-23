@@ -44,9 +44,9 @@ func ConnectToDB() {
 	}
 
 	// migrate the schema
-	db.AutoMigrate(&models.PrivacyAttributes{})
-	db.AutoMigrate(&models.HostAttributes{})
-	db.AutoMigrate(&models.AdminAttributes{})
+	db.AutoMigrate(&models.Privacy{})
+	db.AutoMigrate(&models.Host{})
+	db.AutoMigrate(&models.Admin{})
 
 	// set the database connection
 	database = &DB{Db: db}

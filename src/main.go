@@ -16,5 +16,6 @@ func main() {
 		return c.SendString("Hello, World!")
 	})
 
+	// Start server
 	log.Fatal(app.Listen(":3000"))
 }

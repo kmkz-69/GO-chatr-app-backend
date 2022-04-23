@@ -9,8 +9,7 @@ type Hash struct {
 	hash string
 }
 
-// create a new hash function to hash a string
-func NewHash(str string) Hash {
-	return Hash{hash: fmt.Sprintf("%x", sha256.Sum256([]byte(str)))}
-
+// create hash function to hash password
+func (h *Hash) Create(password string) {
+	h.hash = fmt.Sprintf("%x", sha256.Sum256([]byte(password)))
 }
