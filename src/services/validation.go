@@ -1,16 +1,32 @@
 package services
 
-import "gorm.io/gorm"
+import (
+	"github.com/go-playground/validator/v10"
+	"github.com/gofiber/fiber/v2"
+)
 
-// Validation is the validation service
-type Validation struct {
-	db *gorm.DB
+type ErrorResponse struct {
+	FailedField string
+	Tag         string
+	Value       string
 }
 
-// func for validation data handle error 
-func (v *Validation) handleError(err error) error {
+
+var validate = validator.New()
+
+func ValidateStruct(ctx *fiber.Ctx, v interface{}) (bool, []ErrorResponse) {
+	err := validate.Struct(v)
 	if err != nil {
-		return err
+		errs := err.(validator.ValidationErrors)
+		var errors []ErrorResponse
+		for _, e := range errs {
+			errors = append(errors, ErrorResponse{
+				FailedField: e.Field(),
+				Tag:         e.Tag(),
+				Value:       e.Value().(string),
+			})
+		}
+		return false, errors
 	}
-	return nil
+	return true, nil
 }

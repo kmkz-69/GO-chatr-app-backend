@@ -10,9 +10,11 @@ type AdminRepository struct {
 	db *gorm.DB
 }
 
-// NewAdminRepository returns a new instance of AdminRepository
+// NewAdmin returns a new instance of AdminRepository
 func Admin(db *gorm.DB) *AdminRepository {
-	return &AdminRepository{db: db}
+	return &AdminRepository{
+		db: db,
+	}
 }
 
 // CreateAdmin creates a new admin
